@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+    <div class="container mt-5 animate__animated animate__fadeIn">
+        <h2>{{ post.title }}</h2>
+        {% if post.image_url %}
+            <img src="{{ post.image_url }}" class="img-fluid mb-4" alt="{{ post.title }}">
+        {% endif %}
+        <p>{{ post.content }}</p>
+        <p class="text-muted">By {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}</p>
+        <form method="POST" action="{{ url_for('main_routes.like', post_id=post.id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-primary">{{ 'BEĞEN' if not post.is_liked else 'BEĞENİYİ GERİ AL' }}</button>
+        </form>
+        <hr>
+        <h4>Yorumlar</h4>
+        <ul class="list-unstyled">
+            {% for comment in comments %}
+                <li class="media mb-3">
+                    <img class="mr-3 rounded-circle" src="{{ url_for('static', filename='default.jpg') }}" alt="Generic placeholder image" width="50">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{ comment.author.username }}</h5>
+                        {{ comment.content }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h4>Yorum Ekle</h4>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.content.label(class="form-label") }}
+                {{ form.content(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">YORUM EKLE</button>
+        </form>
+    </div>
+{% endblock %}

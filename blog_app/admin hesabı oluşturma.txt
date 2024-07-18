@@ -1,0 +1,22 @@
+#güvenlik hatası almamak için kod
+
+
+
+
+from project import db, bcrypt
+from project.models import User
+
+# Admin kullanıcı bilgilerini belirleyin
+username = 'admintest'
+email = 'admintest@example.com'
+password = 'testtest'
+hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+# Admin kullanıcıyı oluşturun
+admin = User(username=username, email=email, password=hashed_password, is_admin=True)
+
+# Admin kullanıcıyı veritabanına ekleyin
+db.session.add(admin)
+db.session.commit()
+
+

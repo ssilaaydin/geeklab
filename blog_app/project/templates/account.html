@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>HESABI GÜNCELLE</h2>
+        <form method="POST" action="{{ url_for('auth_routes.account') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.address.label(class="form-label") }}
+                {{ form.address(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.phone.label(class="form-label") }}
+                {{ form.phone(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">GÜNCELLE</button>
+        </form>
+    </div>
+{% endblock %}
